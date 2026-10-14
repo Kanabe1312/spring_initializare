@@ -18,7 +18,7 @@ class ClockBeanTest {
 
     @Configuration
     @ComponentScan(excludeFilters = @ComponentScan.Filter(
-            type = FilterType.ASSIGNABLE_TYPE, classes = DemoRunner.class))
+            type = FilterType.ASSIGNABLE_TYPE, classes = {DemoApplication.class, DemoRunner.class}))
     static class Config {
     }
 

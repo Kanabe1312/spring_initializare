@@ -8,4 +8,5 @@ app:
     default-channel: email
 
 demo:
-  greeting: "Hello from yaml"
+  library:
+    name: "Biblioteca MyCodeSchool"

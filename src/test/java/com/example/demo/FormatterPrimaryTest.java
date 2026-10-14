@@ -7,31 +7,33 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest(classes = NotifierPrimaryTest.Config.class)
-class NotifierPrimaryTest {
+@SpringBootTest(classes = FormatterPrimaryTest.Config.class)
+class FormatterPrimaryTest {
 
     @Configuration
     @ComponentScan(excludeFilters = @ComponentScan.Filter(
-            type = FilterType.ASSIGNABLE_TYPE, classes = DemoRunner.class))
+            type = FilterType.ASSIGNABLE_TYPE, classes = {DemoApplication.class, DemoRunner.class}))
     static class Config {
     }
 
     @Autowired
-    private Notifier notifier;
+    private BookFormatter formatter;
 
     @Test
-    void primaryNotifierIsEmail() {
+    void primaryFormatterIsPlain() {
         // Arrange
-        String message = "disk full";
+        Book book = new Book(7, "Clean Code", "Robert C. Martin", LocalDate.of(2026, 9, 1));
 
         // Act
-        String result = notifier.send(message);
+        String result = formatter.format(book);
 
         // Assert
-        assertTrue(notifier instanceof EmailNotifier);
-        assertEquals("EMAIL: disk full", result);
+        assertTrue(formatter instanceof PlainBookFormatter);
+        assertEquals("#7 \"Clean Code\" de Robert C. Martin (adăugată 2026-09-01)", result);
     }
 }

@@ -7,31 +7,33 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
 
-@SpringBootTest(classes = GreetingServiceTest.Config.class)
-class GreetingServiceTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest(classes = SeedPostConstructTest.Config.class)
+class SeedPostConstructTest {
 
     @Configuration
     @ComponentScan(excludeFilters = @ComponentScan.Filter(
-            type = FilterType.ASSIGNABLE_TYPE, classes = DemoRunner.class))
+            type = FilterType.ASSIGNABLE_TYPE, classes = {DemoApplication.class, DemoRunner.class}))
     static class Config {
     }
 
     @Autowired
-    private GreetingService greetingService;
+    private BookRepository repository;
 
     @Test
-    void greetUsesPrefixFromYaml() {
+    void springManagedRepositoryIsSeededButManualOneIsEmpty() {
         // Arrange
-        String name = "Ana";
+        InMemoryBookRepository manual = new InMemoryBookRepository();
 
         // Act
-        String result = greetingService.greet(name);
+        List<Book> seeded = repository.findAll();
 
         // Assert
-        assertNotNull(greetingService);
-        assertEquals("Hello from yaml — Ana", result);
+        assertEquals(3, seeded.size());
+        assertEquals("Clean Code", seeded.get(0).title());
+        assertEquals(0, manual.count());
     }
 }
