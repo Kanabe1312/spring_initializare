@@ -1,7 +1,6 @@
+out/
 target/
 .idea/
-
+*.iml
 *.class
-*.log
-
 .mvn/wrapper/maven-wrapper.jar
