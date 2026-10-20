@@ -3,10 +3,11 @@ package mycode.products.services;
 import mycode.products.model.Produs;
 import mycode.products.repository.ProdusRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-@Component
+@Service
 public class ProdusServiceImpl implements ProdusService {
 
     private final ProdusRepository produsRepository;

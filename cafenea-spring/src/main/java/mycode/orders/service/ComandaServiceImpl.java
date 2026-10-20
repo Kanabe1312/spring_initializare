@@ -5,11 +5,12 @@ import mycode.orders.repository.ComandaRepository;
 import mycode.products.model.Produs;
 import mycode.products.services.ProdusService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class ComandaServiceImpl implements ComandaService {
 
     private final ComandaRepository comandaRepository;
