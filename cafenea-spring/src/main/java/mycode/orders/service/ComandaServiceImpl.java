@@ -4,10 +4,12 @@ import mycode.orders.model.Comanda;
 import mycode.orders.repository.ComandaRepository;
 import mycode.products.model.Produs;
 import mycode.products.services.ProdusService;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class ComandaServiceImpl implements ComandaService {
 
     private final ComandaRepository comandaRepository;

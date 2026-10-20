@@ -1,10 +1,12 @@
 package mycode.orders.repository;
 
 import mycode.orders.model.Comanda;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ComandaRepositoryImpl implements ComandaRepository {
 
     private final List<Comanda> comenzi = new ArrayList<>();
