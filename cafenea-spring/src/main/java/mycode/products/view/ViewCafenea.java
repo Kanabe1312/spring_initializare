@@ -1,5 +1,6 @@
 package mycode.products.view;
 
+import mycode.config.CafeneaProperties;
 import mycode.orders.model.Comanda;
 import mycode.orders.service.ComandaService;
 import mycode.products.services.ProdusService;
@@ -14,17 +15,19 @@ public class ViewCafenea {
     private final ComandaService comandaService;
     private final Scanner scanner;
     private Comanda comandaCurenta;
+    private  CafeneaProperties cafeneaProperties;
 
     public ViewCafenea(ProdusService produsService, ComandaService comandaService,
-            Scanner scanner) {
+            Scanner scanner,CafeneaProperties cafeneaProperties) {
         this.produsService = produsService;
         this.comandaService = comandaService;
         this.scanner = scanner;
+        this.cafeneaProperties=cafeneaProperties;
     }
 
     public void play() {
         boolean ruleaza = true;
-
+        System.out.println(cafeneaProperties);
         while (ruleaza) {
             System.out.println("\n========== CAFENEA ==========");
             System.out.println("1. Afiseaza produse");
