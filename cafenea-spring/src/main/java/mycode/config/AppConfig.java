@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import java.util.Scanner;
 
 @Configuration
-//@EnableConfigurationProperties(CafeneaProperties.class)
+@EnableConfigurationProperties(CafeneaProperties.class)
 public class AppConfig {
 
     @Bean
@@ -24,12 +24,12 @@ public class AppConfig {
         return new CalculatorPret(tva);
     }
 
-    @Bean
-    public CafeneaProperties cafeneaProperties(@Value("${cafenea.nume}")String nume,
-                                               @Value("${cafenea.moneda}")String moneda,
-                                               @Value("${cafenea.program}")String program){
-        return new CafeneaProperties(nume,moneda,program);
-    }
+    //@Bean
+    // public CafeneaProperties cafeneaProperties(@Value("${cafenea.nume}")String nume,
+    //                                         @Value("${cafenea.moneda}")String moneda,
+    //                                       @Value("${cafenea.program}")String program){
+    //return new CafeneaProperties(nume,moneda,program);
+    //}
 
     @Bean
     public CommandLineRunner pornesteMeniul(ViewCafenea view) {
