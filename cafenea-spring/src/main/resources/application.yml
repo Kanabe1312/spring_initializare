@@ -1,0 +1,14 @@
+spring:
+  main:
+    banner-mode: off
+
+logging:
+  level:
+    root: warn
+
+cafenea:
+  nume: Cafenea
+  moneda: lei
+  tva: 0.21
+  program : 08:00-20:00
+

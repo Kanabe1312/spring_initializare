@@ -4,10 +4,12 @@ import mycode.products.view.ViewCafenea;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.Scanner;
 
 @Configuration
+@PropertySource("classpath:application.yml")
 public class AppConfig {
 
     @Bean
