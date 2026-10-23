@@ -2,8 +2,10 @@ package mycode.products.view;
 
 import mycode.config.CafeneaProperties;
 import mycode.orders.model.Comanda;
+import mycode.orders.printer.BonPrinter;
 import mycode.orders.service.ComandaService;
 import mycode.products.services.ProdusService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -16,13 +18,22 @@ public class ViewCafenea {
     private final Scanner scanner;
     private Comanda comandaCurenta;
     private  CafeneaProperties cafeneaProperties;
+    private final BonPrinter bonPrinter;
+    private final BonPrinter bonDetaliatPrinter;
+
+
 
     public ViewCafenea(ProdusService produsService, ComandaService comandaService,
-            Scanner scanner,CafeneaProperties cafeneaProperties) {
+                       Scanner scanner, CafeneaProperties cafeneaProperties,
+                       BonPrinter bonPrinter, @Qualifier("bondetaliat")BonPrinter bonDetaliatPrinter) {
         this.produsService = produsService;
         this.comandaService = comandaService;
         this.scanner = scanner;
         this.cafeneaProperties=cafeneaProperties;
+        this.bonPrinter = bonPrinter;
+        this.bonDetaliatPrinter = bonDetaliatPrinter;
+
+
     }
 
     public void play() {
@@ -35,6 +46,7 @@ public class ViewCafenea {
             System.out.println("3. Afiseaza bonul");
             System.out.println("4. Finalizeaza comanda");
             System.out.println("5. Afiseaza comenzile");
+            System.out.println("6.Bon detaliat");
             System.out.println("0. Iesire");
             System.out.print("Alege optiunea: ");
 
@@ -100,6 +112,13 @@ public class ViewCafenea {
                     comandaService.listComenzi().forEach(comanda ->
                             System.out.printf("#%d   %d produse      %.2f lei%n",
                                     comanda.getId(), comanda.getProduse().size(), comandaService.total(comanda)));
+                    break;
+                case 6:
+                    if (comandaCurenta == null){
+                        System.out.println("Nu exista o comanda activa.");
+                        break;
+                    }
+                    bonDetaliatPrinter.printeaza(comandaCurenta);
                     break;
 
                 case 0:

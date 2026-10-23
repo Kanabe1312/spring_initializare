@@ -1,4 +1,7 @@
 package mycode.orders.printer;
 
-public class BonPrinter {
+import mycode.orders.model.Comanda;
+
+public interface BonPrinter {
+    void printeaza (Comanda comanda);
 }
