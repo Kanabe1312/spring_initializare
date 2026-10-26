@@ -19,4 +19,6 @@ public interface ComandaService {
     double tva(Comanda comanda);
 
     double total(Comanda comanda);
+
+    double subtotalDupaReduceri(Comanda comanda);
 }

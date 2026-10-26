@@ -4,8 +4,10 @@ import mycode.orders.model.Comanda;
 import mycode.orders.repository.ComandaRepository;
 import mycode.products.model.Produs;
 import mycode.products.services.ProdusService;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -16,20 +18,23 @@ public class ComandaServiceImpl implements ComandaService {
     private final ComandaRepository comandaRepository;
     private final ProdusService produsService;
     private final CalculatorPret calculatorPret;
-
+    private final ObjectProvider<Comanda> comandaProvider;
     public ComandaServiceImpl(
             ComandaRepository comandaRepository,
             ProdusService produsService,
-            CalculatorPret calculatorPret) {
+            CalculatorPret calculatorPret,
+            ObjectProvider<Comanda> comandaProvider) {
 
         this.comandaRepository = comandaRepository;
         this.produsService = produsService;
         this.calculatorPret = calculatorPret;
+        this.comandaProvider = comandaProvider;
     }
 
     @Override
     public Comanda comandaNoua() {
-        return new Comanda(comandaRepository.nextId());
+        int id = comandaRepository.nextId();
+        return comandaProvider.getObject(id);
     }
 
     @Override
@@ -62,5 +67,10 @@ public class ComandaServiceImpl implements ComandaService {
     @Override
     public double total(Comanda comanda) {
         return calculatorPret.total(comanda);
+    }
+
+    @Override
+    public double subtotalDupaReduceri(Comanda comanda) {
+        return calculatorPret.subtotalDupaReduceri(comanda);
     }
 }

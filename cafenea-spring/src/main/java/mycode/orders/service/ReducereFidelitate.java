@@ -1,7 +1,9 @@
 package mycode.orders.service;
 
 import mycode.orders.model.Comanda;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReducereFidelitate implements Reducere {
 
     @Override

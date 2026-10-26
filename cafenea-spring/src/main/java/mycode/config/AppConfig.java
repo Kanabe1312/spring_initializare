@@ -1,5 +1,6 @@
 package mycode.config;
 import mycode.orders.service.CalculatorPret;
+import mycode.orders.service.Reducere;
 import mycode.products.view.ViewCafenea;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Configuration
@@ -20,8 +22,9 @@ public class AppConfig {
     }
 
     @Bean
-    public CalculatorPret calculatorPret(@Value("${cafenea.tva}")double tva) {
-        return new CalculatorPret(tva);
+    public CalculatorPret calculatorPret(
+            @Value("${cafenea.tva}") double tva, List<Reducere> reduceri) {
+        return new CalculatorPret(tva, reduceri);
     }
 
     //@Bean

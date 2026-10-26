@@ -16,17 +16,26 @@ public class DetaliatBonPrinter implements BonPrinter {
     }
 
 
-    public void printeaza(Comanda comanda){
-        System.out.println("Bon detaliat comada#"+comanda.getId());
+    @Override
+    public void printeaza(Comanda comanda) {
+        System.out.println("Bon detaliat comanda #" + comanda.getId());
 
-        for (Produs produs:comanda.getProduse()){
-            System.out.printf("%-15s %6.2f %n",produs.getNume(),produs.getPret());
+        for (Produs produs : comanda.getProduse()) {
+            System.out.printf("  %-15s %6.2f%n", produs.getNume(), produs.getPret());
         }
-        System.out.printf("Subtotal      %6.2f %n",comandaService.subtotal(comanda));
 
-        System.out.printf("TVA 21        %6.2f %n",comandaService.tva(comanda));
+        double subtotal = comandaService.subtotal(comanda);
+        double dupaReduceri = comandaService.subtotalDupaReduceri(comanda);
 
-        System.out.printf("TOTAL          %6.2f %n",comandaService.total(comanda));
+        System.out.printf("Subtotal             %6.2f%n", subtotal);
+
+        if (subtotal != dupaReduceri) {
+            System.out.printf("Total reduceri       %6.2f%n", dupaReduceri - subtotal);
+        }
+
+        System.out.printf("TVA 21%%              %6.2f%n", comandaService.tva(comanda));
+
+        System.out.printf("TOTAL                %6.2f lei%n", comandaService.total(comanda));
     }
 
 

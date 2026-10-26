@@ -5,6 +5,8 @@ import mycode.orders.model.Comanda;
 import mycode.orders.printer.BonPrinter;
 import mycode.orders.service.ComandaService;
 import mycode.products.services.ProdusService;
+import mycode.raport.RaportVanzari;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -20,18 +22,21 @@ public class ViewCafenea {
     private  CafeneaProperties cafeneaProperties;
     private final BonPrinter bonPrinter;
     private final BonPrinter bonDetaliatPrinter;
+    private final ObjectProvider<RaportVanzari> raportProvider;
 
 
 
     public ViewCafenea(ProdusService produsService, ComandaService comandaService,
                        Scanner scanner, CafeneaProperties cafeneaProperties,
-                       BonPrinter bonPrinter, @Qualifier("bondetaliat")BonPrinter bonDetaliatPrinter) {
+                       BonPrinter bonPrinter, @Qualifier("bondetaliat")BonPrinter bonDetaliatPrinter,
+                       ObjectProvider<RaportVanzari> raportProvider) {
         this.produsService = produsService;
         this.comandaService = comandaService;
         this.scanner = scanner;
         this.cafeneaProperties=cafeneaProperties;
         this.bonPrinter = bonPrinter;
         this.bonDetaliatPrinter = bonDetaliatPrinter;
+        this.raportProvider = raportProvider;
 
 
     }
@@ -109,9 +114,9 @@ public class ViewCafenea {
                     break;
 
                 case 5:
-                    comandaService.listComenzi().forEach(comanda ->
-                            System.out.printf("#%d   %d produse      %.2f lei%n",
-                                    comanda.getId(), comanda.getProduse().size(), comandaService.total(comanda)));
+                    comandaService.listComenzi().forEach(comanda -> System.out.printf("#%d   %d produse      %.2f lei%n", comanda.getId(),
+                            comanda.getProduse().size(), comandaService.total(comanda)));
+                    raportProvider.getObject().afiseaza();
                     break;
                 case 6:
                     if (comandaCurenta == null){
