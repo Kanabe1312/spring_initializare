@@ -1,0 +1,4 @@
+1;Espresso;8.00
+2;Cappuccino;12.50
+3;Latte;13.00
+4;Croissant;9.50

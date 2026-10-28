@@ -1,5 +1,6 @@
 package mycode.orders.service;
 
+import casa.CasaDeMarcat;
 import mycode.orders.model.Comanda;
 import mycode.orders.repository.ComandaRepository;
 import mycode.products.model.Produs;
@@ -19,16 +20,18 @@ public class ComandaServiceImpl implements ComandaService {
     private final ProdusService produsService;
     private final CalculatorPret calculatorPret;
     private final ObjectProvider<Comanda> comandaProvider;
+    private final CasaDeMarcat casaDeMarcat;
     public ComandaServiceImpl(
             ComandaRepository comandaRepository,
             ProdusService produsService,
             CalculatorPret calculatorPret,
-            ObjectProvider<Comanda> comandaProvider) {
+            ObjectProvider<Comanda> comandaProvider,CasaDeMarcat casaDeMarcat) {
 
         this.comandaRepository = comandaRepository;
         this.produsService = produsService;
         this.calculatorPret = calculatorPret;
         this.comandaProvider = comandaProvider;
+        this.casaDeMarcat = casaDeMarcat;
     }
 
     @Override
@@ -47,6 +50,7 @@ public class ComandaServiceImpl implements ComandaService {
     @Override
     public void finalizeaza(Comanda comanda) {
         comandaRepository.addComanda(comanda);
+        casaDeMarcat.inregistreaza(total(comanda));
     }
 
     @Override

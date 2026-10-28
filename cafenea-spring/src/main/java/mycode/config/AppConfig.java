@@ -1,4 +1,5 @@
 package mycode.config;
+import casa.CasaDeMarcat;
 import mycode.orders.service.CalculatorPret;
 import mycode.orders.service.Reducere;
 import mycode.products.view.ViewCafenea;
@@ -38,5 +39,11 @@ public class AppConfig {
     public CommandLineRunner pornesteMeniul(ViewCafenea view) {
         return args -> view.play();
     }
+
+    @Bean(initMethod = "deschide", destroyMethod = "inchide")
+    public CasaDeMarcat casaDeMarcat(){
+        return new CasaDeMarcat();
+    }
+
 
 }
